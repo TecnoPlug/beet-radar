@@ -1,0 +1,46 @@
+{
+    "version": 3,
+    "config": {
+        "dispositivo": {
+            "nombre": "NO NAME",
+            "ubicacion": "NO LOCATION",
+            "zona": "NO ZONE"
+        },
+        "deteccion": {
+            "velocidad_minima": 1,
+            "velocidad": 20,
+            "sentido": "*",
+            "tiempo_captura": 8,
+            "activo": true,
+            "factor_correccion": 1.0,
+            "auto": false,
+            "area": {
+                "y1": 0,
+                "x1": 0,
+                "x2": 0,
+                "y2": 0
+            }
+        },
+        "radar": {
+            "MIDS": 7,
+            "MARA": 100,
+            "MISP": 1,
+            "RRAI": 2,
+            "RSPI": 3,
+            "MASP": 80,
+            "THOF": 50,
+            "TRFT": 2,
+            "RBFR": 2,
+            "MIRA": 10,
+            "VISU": 3
+        }
+    },
+    "contador": {
+        "infracciones": 0,
+        "detectados": 0,
+        "total_infracciones": 0,
+        "total_detectados": 0,
+        "fecha_inicio": null,
+        "minutos_activos": 0
+    }
+}
