@@ -6,6 +6,10 @@ import select
 import requests
 import time
 
+import pexpect
+import sys
+
+
 sshDisconnected = False
 
 
@@ -89,3 +93,18 @@ def reverse_forward_tunnel(server_port, remote_host, remote_port, transport, add
         thr.start()
     sshDisconnected = False
     return
+
+
+def enable_ap_mode(config):
+    child = pexpect.spawn('turn-wifi-into-apmode yes')
+    child.logfile = sys.stdout.buffer
+    child.expect(
+        "[default: friendlyelec-wifiap]: ")
+    child.sendline(
+        f"{config['config']['dispositivo']['nombre']}-{config['config']['dispositivo']['ubicacion']}-RDR")
+    logging.critical("Setting password")
+    child.expect("[default: 123456789]: ")
+    child.sendline("Yhbg5tTfgRfdsTbgFR")
+    child.expect("Enter password again: ")
+    child.sendline("Yhbg5tTfgRfdsTbgFR")
+    logging.critical("AP Mode is Enable")

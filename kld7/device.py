@@ -72,17 +72,20 @@ class _RadarParamDescriptor:
     def __init__(self, index, description):
         self._cmd = ""
         self._index = index
-        self.__doc__ = "(property) " + description
+        self.__doc__ = description
 
     def __set_name__(self, owner, name):
         self._cmd = name
         _param_struct_fields[self._index] = name
 
-    def __set__(self, obj, value):
+    def set(self, obj, value):
         obj._parent._set_param(self._cmd, value)
 
-    def __get__(self, obj, owner):
+    def get(self, obj, owner):
         return obj._parent._get_param(self._cmd)
+    
+    def desc(self):
+        return self.__doc__
 
 class RadarParamProxy:
     """Proxy class for accessing radar sensor parameters
@@ -105,7 +108,7 @@ class RadarParamProxy:
     RBFR = _RadarParamDescriptor(
         1, "Base frequency. 0=Low, 1=Middle, 2=High")
     RSPI = _RadarParamDescriptor(
-        2, "Maximum speed. 0=12.5km/h, 1=25km/h, 2=50km/h, 3=100km/h")
+        2, "Maximum speed. 0=12km/h, 1=25km/h, 2=50km/h, 3=100km/h")
     RRAI = _RadarParamDescriptor(
         3, "Maximum range. 0=5m, 1=10m, 2=30m, 3=100m")
     THOF = _RadarParamDescriptor(
@@ -231,7 +234,8 @@ class KLD7:
         if data is None:
             data = b''
         if isinstance(data, int):
-            data = struct.pack("<I", data)
+            data = struct.pack("<i", data)
+
         if isinstance(cmd, str):
             cmd = cmd.upper().encode("ASCII")
         length = len(data)
