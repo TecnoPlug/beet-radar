@@ -4,7 +4,6 @@ from math import floor
 from os import listdir
 from posixpath import join
 from config.init import *
-from camera import __gstreamer_pipeline
 from kld7 import KLD7
 from socketserver import ThreadingMixIn
 from kld7.device import RadarParamProxy
@@ -34,7 +33,7 @@ import time
 multitasking.set_max_threads(10)
 
 logging.root.setLevel(logging.NOTSET)
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.CRITICAL)
 
 config = {}
 isConfigFileUpdating = False
@@ -614,14 +613,14 @@ def startCamera():
                                 startCamera()
                                 return
                         else:
-                            logging.critical('End camera capture')
+                            logging.info('End camera capture')
                             if cameraCapturing:
                                 cameraCapturing = False
                             cap.release()
                             break
                         time.sleep(1/30)
                 else:
-                    logging.critical('ERROR!!!!! Camera not found')
+                    logging.info('ERROR!!!!! Camera not found')
                     time.sleep(cameraConnectionIntents)
                     if cameraConnectionIntents < 60:
                         cameraConnectionIntents += 1
@@ -629,7 +628,7 @@ def startCamera():
                     if cameraId == 5:
                         cameraId = 1
             except:
-                logging.critical('ERROR!!!!! Camera not found')
+                # logging.critical('ERROR!!!!! Camera not found')
                 time.sleep(cameraConnectionIntents)
                 if cameraConnectionIntents < 60:
                     cameraConnectionIntents += 1
