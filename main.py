@@ -304,7 +304,9 @@ def startRadar():
                     if detection['infraccion']:
                         logging.info('Save infraccion')
                         print(detection)
-                        mdb.add(detection)
+                        d = json.dumps(detection)
+                        y = json.loads(d)
+                        mdb.addMany([y])
                     fdir = f"/usr/share/radar/captures/{datetime.now().strftime('%Y/%m/%d')}"
                     if not os.path.exists(fdir):
                         os.makedirs(fdir)
