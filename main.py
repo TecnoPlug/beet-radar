@@ -568,7 +568,7 @@ def startCamera():
             try:
                 logging.info('Try connect camera')
                 cap = cv2.VideoCapture(
-                    f"v4l2src device=/dev/video{cameraId} ! image/jpeg,framerate=30/1,width=1920,height=1080 \
+                    f"v4l2src device=/dev/video{cameraId} ! image/jpeg,framerate=30/1,width=1280,height=720 \
                     ! jpegdec ! videoconvert ! appsink max-buffers=1 drop=True", cv2.CAP_GSTREAMER)
                 if cap.isOpened():
                     print(f'Camera index available: {cameraId}')
